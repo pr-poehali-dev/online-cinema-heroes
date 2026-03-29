@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CHANNELS, CARTOONS } from "../data/cartoons";
+import { CHANNELS, CARTOONS, type Channel } from "../data/cartoons";
 import { type NavState } from "../App";
 import Icon from "@/components/ui/icon";
 
@@ -9,6 +9,7 @@ interface ChannelsPageProps {
 
 export default function ChannelsPage({ navigate }: ChannelsPageProps) {
   const [filter, setFilter] = useState<"all" | "live" | "soon">("all");
+  const [activeStream, setActiveStream] = useState<{ name: string; url: string } | null>(null);
 
   const filtered = CHANNELS.filter((ch) => {
     if (filter === "live") return ch.isLive;
@@ -17,6 +18,14 @@ export default function ChannelsPage({ navigate }: ChannelsPageProps) {
   });
 
   const liveCount = CHANNELS.filter((c) => c.isLive).length;
+
+  const handleChannelClick = (ch: Channel) => {
+    if (ch.cartoonId) {
+      navigate({ page: "series", cartoonId: ch.cartoonId });
+    } else if (ch.streamUrl) {
+      setActiveStream({ name: ch.name, url: ch.streamUrl });
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -62,16 +71,57 @@ export default function ChannelsPage({ navigate }: ChannelsPageProps) {
         ))}
       </div>
 
+      {/* Stream modal */}
+      {activeStream && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+          <div className="bg-card rounded-2xl border border-white/10 w-full max-w-4xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-kidz-red animate-pulse inline-block" />
+                <span className="font-russo text-white">{activeStream.name}</span>
+                <span className="text-white/40 text-xs">LIVE</span>
+              </div>
+              <button
+                onClick={() => setActiveStream(null)}
+                className="text-white/50 hover:text-white transition-colors"
+              >
+                <Icon name="X" size={20} />
+              </button>
+            </div>
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+              <iframe
+                src={activeStream.url}
+                className="absolute inset-0 w-full h-full"
+                allowFullScreen
+                allow="autoplay; fullscreen"
+                title={activeStream.name}
+              />
+            </div>
+            <div className="px-5 py-3 text-center">
+              <a
+                href={activeStream.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-kidz-yellow text-sm hover:underline"
+              >
+                Открыть на сайте канала →
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Channels grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filtered.map((ch, i) => {
           const cartoon = CARTOONS.find((c) => c.id === ch.cartoonId);
+          const hasStream = !!ch.streamUrl || !!ch.cartoonId;
           return (
             <div
               key={ch.id}
               className="channel-card bg-card rounded-2xl overflow-hidden border border-white/10 transition-all duration-300 cursor-pointer animate-fade-in"
               style={{ animationDelay: `${i * 0.04}s` }}
-              onClick={() => ch.cartoonId ? navigate({ page: "series", cartoonId: ch.cartoonId }) : undefined}
+              onClick={() => handleChannelClick(ch)}
             >
               {/* Banner */}
               <div
@@ -124,12 +174,12 @@ export default function ChannelsPage({ navigate }: ChannelsPageProps) {
                 <button
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm transition-all hover:opacity-90"
                   style={{
-                    background: ch.isLive ? ch.color : "rgba(255,255,255,0.08)",
-                    color: ch.isLive ? "#fff" : "rgba(255,255,255,0.4)",
+                    background: hasStream ? ch.color : "rgba(255,255,255,0.08)",
+                    color: hasStream ? "#fff" : "rgba(255,255,255,0.4)",
                   }}
                 >
-                  <Icon name={ch.isLive ? "Play" : "Bell"} size={14} />
-                  {ch.isLive ? "Смотреть" : "Уведомить"}
+                  <Icon name={hasStream ? "Play" : "Bell"} size={14} />
+                  {hasStream ? "Смотреть" : "Уведомить"}
                 </button>
               </div>
             </div>

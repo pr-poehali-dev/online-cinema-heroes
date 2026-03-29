@@ -93,7 +93,151 @@ export const CARTOONS: Cartoon[] = [
   },
 ];
 
-export const CHANNELS = [
+export interface Channel {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  cartoonId: string;
+  isLive: boolean;
+  currentEpisode: string;
+  streamUrl?: string;
+}
+
+export const CHANNELS: Channel[] = [
+  {
+    id: "perviy-channel",
+    name: "Первый канал",
+    description: "Главный федеральный канал России",
+    icon: "📺",
+    color: "#1565C0",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://www.1tv.ru/live",
+  },
+  {
+    id: "russia1-channel",
+    name: "Россия 1",
+    description: "Федеральный канал ВГТРК",
+    icon: "🇷🇺",
+    color: "#C62828",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://russia.tv/brand/show/brand_id/57026",
+  },
+  {
+    id: "ntv-channel",
+    name: "НТВ",
+    description: "Независимое телевидение",
+    icon: "🎬",
+    color: "#2E7D32",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://www.ntv.ru/pryamoy-efir/",
+  },
+  {
+    id: "russia24-channel",
+    name: "Россия 24",
+    description: "Круглосуточный новостной канал",
+    icon: "📡",
+    color: "#0277BD",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://russia.tv/brand/show/brand_id/57024",
+  },
+  {
+    id: "5kanal-channel",
+    name: "Пятый канал",
+    description: "Петербург — Пятый канал",
+    icon: "5️⃣",
+    color: "#E65100",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://www.5-tv.ru/online/",
+  },
+  {
+    id: "ren-channel",
+    name: "РЕН ТВ",
+    description: "Авторское независимое телевидение",
+    icon: "🔴",
+    color: "#D32F2F",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://ren.tv/live",
+  },
+  {
+    id: "stv-channel",
+    name: "СТС",
+    description: "Семейный канал развлечений",
+    icon: "🎭",
+    color: "#6A1B9A",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://ctc.ru/online/",
+  },
+  {
+    id: "tnt-channel",
+    name: "ТНТ",
+    description: "ТНТ — ты не такой",
+    icon: "😂",
+    color: "#F57F17",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://tnt-online.ru/live",
+  },
+  {
+    id: "match-channel",
+    name: "Матч ТВ",
+    description: "Всероссийский спортивный канал",
+    icon: "⚽",
+    color: "#1B5E20",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://matchtv.ru/live",
+  },
+  {
+    id: "kultura-channel",
+    name: "Культура",
+    description: "Российский культурный телеканал",
+    icon: "🎨",
+    color: "#4A148C",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://russia.tv/brand/show/brand_id/57025",
+  },
+  {
+    id: "obshchestvennoye-channel",
+    name: "ОТР",
+    description: "Общественное телевидение России",
+    icon: "🏛️",
+    color: "#37474F",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://otr-online.ru/programms/otr-live/",
+  },
+  {
+    id: "tbk-channel",
+    name: "ТВК",
+    description: "Телевидение Красноярска",
+    icon: "📻",
+    color: "#00838F",
+    cartoonId: "",
+    isLive: true,
+    currentEpisode: "Прямой эфир",
+    streamUrl: "https://tvk6.ru/live/",
+  },
   {
     id: "geroychiki-channel",
     name: "Геройчики ТВ",
