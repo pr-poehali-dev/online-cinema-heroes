@@ -11,6 +11,8 @@ interface SeriesPageProps {
 export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
   const cartoon = CARTOONS.find((c) => c.id === cartoonId);
   const [activeSeason, setActiveSeason] = useState(1);
+  const [playerUrl, setPlayerUrl] = useState<string | null>(null);
+  const [playerTitle, setPlayerTitle] = useState("");
 
   if (!cartoon) {
     return (
@@ -26,8 +28,59 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
 
   const currentSeason = cartoon.seasonData.find((s) => s.number === activeSeason);
 
+  const openPlayer = (url: string, title: string) => {
+    setPlayerUrl(url);
+    setPlayerTitle(title);
+  };
+
+  const closePlayer = () => {
+    setPlayerUrl(null);
+    setPlayerTitle("");
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      {/* Video Player Modal */}
+      {playerUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.92)" }}
+          onClick={closePlayer}
+        >
+          <div
+            className="relative w-full max-w-4xl animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-center justify-between mb-3 px-1">
+              <p className="text-white font-russo text-lg truncate pr-4">{playerTitle}</p>
+              <button
+                onClick={closePlayer}
+                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all flex-shrink-0"
+              >
+                <Icon name="X" size={20} />
+              </button>
+            </div>
+            {/* Player */}
+            <div className="rounded-2xl overflow-hidden bg-black" style={{ aspectRatio: "16/9" }}>
+              <iframe
+                src={playerUrl}
+                width="100%"
+                height="100%"
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+                style={{ border: "none" }}
+              />
+            </div>
+            <p className="text-white/30 text-xs text-center mt-3">
+              Нажми за пределами плеера, чтобы закрыть
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Back button */}
       <button
         onClick={() => navigate({ page: "cartoons" })}
@@ -49,9 +102,7 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
         </div>
         <div className="relative z-10 p-8 md:p-12 min-h-[220px] flex flex-col justify-end">
           <div className="flex flex-wrap gap-2 mb-3">
-            <span className="pill-badge bg-white/15 text-white border border-white/20 text-xs">
-              {cartoon.ageRating}
-            </span>
+            <span className="pill-badge bg-white/15 text-white border border-white/20 text-xs">{cartoon.ageRating}</span>
             <span className="pill-badge bg-white/15 text-white border border-white/20 text-xs">
               {cartoon.seasons} {cartoon.seasons === 1 ? "сезон" : "сезона"}
             </span>
@@ -60,14 +111,10 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
                 {cartoon.totalEpisodes} серий
               </span>
             )}
-            <span className="pill-badge bg-white/15 text-white border border-white/20 text-xs">
-              {cartoon.years}
-            </span>
+            <span className="pill-badge bg-white/15 text-white border border-white/20 text-xs">{cartoon.years}</span>
           </div>
           <h1 className="font-russo text-4xl md:text-5xl text-white mb-3">{cartoon.title}</h1>
-          <p className="text-white/60 text-sm md:text-base max-w-2xl leading-relaxed">
-            {cartoon.description}
-          </p>
+          <p className="text-white/60 text-sm md:text-base max-w-2xl leading-relaxed">{cartoon.description}</p>
         </div>
       </div>
 
@@ -80,11 +127,7 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
           </p>
           <div className="flex flex-wrap gap-2">
             {cartoon.genres.map((g) => (
-              <span
-                key={g}
-                className="pill-badge"
-                style={{ background: `${cartoon.color}25`, color: cartoon.color, border: `1px solid ${cartoon.color}40` }}
-              >
+              <span key={g} className="pill-badge" style={{ background: `${cartoon.color}25`, color: cartoon.color, border: `1px solid ${cartoon.color}40` }}>
                 {g}
               </span>
             ))}
@@ -97,12 +140,7 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
           </p>
           <div className="flex flex-wrap gap-2">
             {cartoon.heroes.map((h) => (
-              <span
-                key={h}
-                className="pill-badge bg-white/10 text-white border border-white/15"
-              >
-                {h}
-              </span>
+              <span key={h} className="pill-badge bg-white/10 text-white border border-white/15">{h}</span>
             ))}
           </div>
         </div>
@@ -134,7 +172,7 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
               {currentSeason.episodes.map((ep, i) => (
                 <div
                   key={ep.number}
-                  className="episode-row flex items-center gap-4 px-5 py-4 transition-all duration-200 cursor-pointer border-b border-white/5 last:border-b-0"
+                  className="episode-row flex items-center gap-4 px-5 py-4 transition-all duration-200 border-b border-white/5 last:border-b-0"
                   style={{ animationDelay: `${i * 0.03}s` }}
                 >
                   {/* Number */}
@@ -153,12 +191,27 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
                     <p className="text-white/30 text-xs mt-0.5">Сезон {activeSeason}</p>
                   </div>
 
+                  {/* Available badge */}
+                  {ep.videoUrl && (
+                    <span className="pill-badge bg-kidz-green/15 text-kidz-green border border-kidz-green/30 text-xs flex-shrink-0 hidden sm:inline-flex">
+                      <Icon name="CheckCircle" size={11} />
+                      Доступно
+                    </span>
+                  )}
+
                   {/* Play button */}
                   <button
-                    className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
-                    style={{ background: `${cartoon.color}30`, color: cartoon.color }}
+                    onClick={() => ep.videoUrl && openPlayer(ep.videoUrl, `${cartoon.title} — Серия ${ep.number}: ${ep.title}`)}
+                    className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                      ep.videoUrl
+                        ? "hover:scale-110 cursor-pointer"
+                        : "opacity-30 cursor-not-allowed"
+                    }`}
+                    style={{ background: ep.videoUrl ? `${cartoon.color}30` : "rgba(255,255,255,0.05)", color: ep.videoUrl ? cartoon.color : "#fff" }}
+                    title={ep.videoUrl ? "Смотреть" : "Скоро"}
+                    disabled={!ep.videoUrl}
                   >
-                    <Icon name="Play" size={16} />
+                    <Icon name={ep.videoUrl ? "Play" : "Clock"} size={16} />
                   </button>
                 </div>
               ))}
@@ -167,9 +220,7 @@ export default function SeriesPage({ cartoonId, navigate }: SeriesPageProps) {
             <div className="bg-card rounded-2xl border border-white/10 p-12 text-center">
               <div className="text-5xl mb-4">⏳</div>
               <h3 className="font-russo text-white text-xl mb-2">Скоро!</h3>
-              <p className="text-white/40 text-sm">
-                Серии {activeSeason} сезона скоро будут добавлены
-              </p>
+              <p className="text-white/40 text-sm">Серии {activeSeason} сезона скоро будут добавлены</p>
             </div>
           )}
         </div>
