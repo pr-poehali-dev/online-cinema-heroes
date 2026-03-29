@@ -60,7 +60,7 @@ export const CARTOONS: Cartoon[] = [
           { number: 15, title: "Одиссея Бублика", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239072&hd=2" },
           { number: 16, title: "Возвращение Пинки", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239073&hd=2" },
           { number: 17, title: "Одиночество Бублика", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239074&hd=2" },
-          { number: 18, title: "Страшный праздник", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239075&hd=2" },
+          { number: 18, title: "Страшный праздник", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239080&hd=2" },
           { number: 19, title: "Хвост О-Раша", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239075&hd=2" },
           { number: 20, title: "История Ко-Ко", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239076&hd=2" },
           { number: 21, title: "Конкурс точилок", videoUrl: "https://vkvideo.ru/video_ext.php?oid=-234589463&id=456239077&hd=2" },
