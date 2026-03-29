@@ -8,16 +8,20 @@ interface ChannelsPageProps {
 }
 
 export default function ChannelsPage({ navigate }: ChannelsPageProps) {
-  const [filter, setFilter] = useState<"all" | "live" | "soon">("all");
+  const [filter, setFilter] = useState<"all" | "live" | "soon" | "federal" | "kids">("all");
   const [activeStream, setActiveStream] = useState<{ name: string; url: string } | null>(null);
 
   const filtered = CHANNELS.filter((ch) => {
     if (filter === "live") return ch.isLive;
     if (filter === "soon") return !ch.isLive;
+    if (filter === "federal") return ch.category === "federal";
+    if (filter === "kids") return ch.category === "kids";
     return true;
   });
 
   const liveCount = CHANNELS.filter((c) => c.isLive).length;
+  const federalCount = CHANNELS.filter((c) => c.category === "federal").length;
+  const kidsCount = CHANNELS.filter((c) => c.category === "kids").length;
 
   const handleChannelClick = (ch: Channel) => {
     if (ch.cartoonId) {
@@ -41,9 +45,11 @@ export default function ChannelsPage({ navigate }: ChannelsPageProps) {
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-2 mb-8">
+      <div className="flex flex-wrap gap-2 mb-8">
         {[
           { id: "all" as const, label: "Все каналы", count: CHANNELS.length },
+          { id: "federal" as const, label: "Федеральные", count: federalCount },
+          { id: "kids" as const, label: "Детские", count: kidsCount },
           { id: "live" as const, label: "В эфире", count: liveCount },
           { id: "soon" as const, label: "Скоро", count: CHANNELS.length - liveCount },
         ].map((tab) => (

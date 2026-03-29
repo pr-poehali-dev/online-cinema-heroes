@@ -103,6 +103,7 @@ export interface Channel {
   isLive: boolean;
   currentEpisode: string;
   streamUrl?: string;
+  category?: "federal" | "kids";
 }
 
 export const CHANNELS: Channel[] = [
@@ -116,6 +117,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://www.1tv.ru/live",
+    category: "federal",
   },
   {
     id: "russia1-channel",
@@ -127,6 +129,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://russia.tv/brand/show/brand_id/57026",
+    category: "federal",
   },
   {
     id: "ntv-channel",
@@ -138,6 +141,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://www.ntv.ru/pryamoy-efir/",
+    category: "federal",
   },
   {
     id: "russia24-channel",
@@ -149,6 +153,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://russia.tv/brand/show/brand_id/57024",
+    category: "federal",
   },
   {
     id: "5kanal-channel",
@@ -160,6 +165,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://www.5-tv.ru/online/",
+    category: "federal",
   },
   {
     id: "ren-channel",
@@ -171,6 +177,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://ren.tv/live",
+    category: "federal",
   },
   {
     id: "stv-channel",
@@ -182,6 +189,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://ctc.ru/online/",
+    category: "federal",
   },
   {
     id: "tnt-channel",
@@ -193,6 +201,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://tnt-online.ru/live",
+    category: "federal",
   },
   {
     id: "match-channel",
@@ -204,6 +213,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://matchtv.ru/live",
+    category: "federal",
   },
   {
     id: "kultura-channel",
@@ -215,6 +225,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://russia.tv/brand/show/brand_id/57025",
+    category: "federal",
   },
   {
     id: "obshchestvennoye-channel",
@@ -226,6 +237,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://otr-online.ru/programms/otr-live/",
+    category: "federal",
   },
   {
     id: "tbk-channel",
@@ -237,6 +249,7 @@ export const CHANNELS: Channel[] = [
     isLive: true,
     currentEpisode: "Прямой эфир",
     streamUrl: "https://tvk6.ru/live/",
+    category: "federal",
   },
   {
     id: "geroychiki-channel",
@@ -247,6 +260,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "geroychiki",
     isLive: true,
     currentEpisode: "Геройчики — Новые герои",
+    category: "kids",
   },
   {
     id: "um-hrum-channel",
@@ -257,6 +271,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "um-i-hrum",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "fixiki-channel",
@@ -267,6 +282,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "masha-channel",
@@ -277,6 +293,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "luntik-channel",
@@ -287,6 +304,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "smeshariki-channel",
@@ -297,6 +315,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "kikoriki-channel",
@@ -307,6 +326,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "barboskiny-channel",
@@ -317,6 +337,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "tractor-channel",
@@ -327,6 +348,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "kolobok-channel",
@@ -337,6 +359,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "peppa-channel",
@@ -347,6 +370,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "paw-channel",
@@ -357,6 +381,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "cars-channel",
@@ -367,6 +392,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "dino-channel",
@@ -377,6 +403,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "robot-channel",
@@ -387,6 +414,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "fairy-channel",
@@ -397,6 +425,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "space-channel",
@@ -407,6 +436,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "ocean-channel",
@@ -417,6 +447,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "jungle-channel",
@@ -427,6 +458,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "music-channel",
@@ -437,6 +469,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "sport-channel",
@@ -447,6 +480,7 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
   {
     id: "magic-channel",
@@ -457,5 +491,6 @@ export const CHANNELS: Channel[] = [
     cartoonId: "",
     isLive: false,
     currentEpisode: "Скоро в эфире",
+    category: "kids",
   },
 ];
